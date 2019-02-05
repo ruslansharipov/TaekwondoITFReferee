@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">ITF Referee App</string>
+    <string name="home">Старт</string>
+    <string name="papers">Билеты</string>
+    <string name="themes">Темы</string>
+    <string name="test">Тест</string>
+    <string name="challenge">Проверь свои знания случайно выбранным билетом</string>
+    <string name="start">Старт</string>
+    <string name="search_title">Поиск</string>
+
+    <string name="questions_count">Вопросов: %1$d</string>
+</resources>

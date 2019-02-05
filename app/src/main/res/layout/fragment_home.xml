@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".home.HomeFragment"
+        android:gravity="center"
+        android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            app:cardCornerRadius="8dp">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <TextView android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="@string/test"
+                      android:padding="24dp"
+                      android:gravity="center"
+                      android:background="@color/colorPrimary"
+                      style="@style/TextAppearance.AppCompat.Display1"
+                      android:textColor="@android:color/white"/>
+
+            <TextView android:layout_width="match_parent"
+                      android:layout_height="56dp"
+                      android:text="@string/challenge"
+                      android:gravity="center"
+                      style="@style/TextAppearance.AppCompat.Body2"/>
+
+            <View android:layout_width="match_parent"
+                  android:layout_height="1dp"
+                  android:background="@android:color/darker_gray"/>
+
+            <Button
+                    android:id="@+id/randomPaper"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="@string/start"
+                    android:textColor="@color/colorPrimary"
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="4dp"
+            app:cardCornerRadius="8dp">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <Button
+                    android:id="@+id/papersButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:drawableStart="@drawable/icon_papers"
+                    android:drawablePadding="16dp"
+                    android:text="@string/papers"
+                    android:textAlignment="viewStart"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"/>
+
+            <Button
+                    android:id="@+id/themesButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="@string/themes"
+                    android:drawableStart="@drawable/icon_themes"
+                    android:drawablePadding="16dp"
+                    android:textAlignment="textStart"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"/>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

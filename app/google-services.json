@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "883124304200",
+    "firebase_url": "https://firecocktails.firebaseio.com",
+    "project_id": "firecocktails",
+    "storage_bucket": "firecocktails.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:883124304200:android:f1006c39a4861778",
+        "android_client_info": {
+          "package_name": "com.sharipov.taekwondoitfreferee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "883124304200-2a8bgoror5japomflnvrkd65v2kr2aon.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sharipov.taekwondoitfreferee",
+            "certificate_hash": "8298816e57ca969dd3a1e8efbb021ea55e769e08"
+          }
+        },
+        {
+          "client_id": "883124304200-43924nfcj82tp0eel6ckbomb6vb5s8r7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbg_CvGbqTfhl9taO2TqgZA78yIKkiKJ4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "883124304200-43924nfcj82tp0eel6ckbomb6vb5s8r7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
