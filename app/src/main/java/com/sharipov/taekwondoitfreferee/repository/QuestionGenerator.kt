@@ -1,5 +1,4 @@
-import com.sharipov.taekwondoitfreferee.Question
-import kotlin.random.Random
+package com.sharipov.taekwondoitfreferee.repository
 
 object QuestionGenerator {
 //    val random = Random.Default

@@ -1,4 +1,4 @@
-package com.sharipov.taekwondoitfreferee.home
+package com.sharipov.taekwondoitfreferee.fragment.home
 
 
 import android.os.Bundle

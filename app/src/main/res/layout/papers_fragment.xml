@@ -18,7 +18,7 @@
             tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             tools:spanCount="4"
             tools:listitem="@layout/papers_grid_item"
-            tools:context=".papers.PapersFragment"/>
+            tools:context=".fragment.papers.PapersFragment"/>
 
     <ProgressBar
             android:id="@+id/progressBar"

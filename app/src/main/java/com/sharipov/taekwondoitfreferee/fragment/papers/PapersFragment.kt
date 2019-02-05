@@ -1,6 +1,5 @@
-package com.sharipov.taekwondoitfreferee.papers
+package com.sharipov.taekwondoitfreferee.fragment.papers
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.OrientationHelper
-import com.sharipov.taekwondoitfreferee.MainViewModel
+import com.sharipov.taekwondoitfreferee.activity_main.MainViewModel
 import com.sharipov.taekwondoitfreferee.R
 import kotlinx.android.synthetic.main.papers_fragment.*
 

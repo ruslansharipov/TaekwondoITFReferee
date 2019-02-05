@@ -1,4 +1,4 @@
-package com.sharipov.taekwondoitfreferee.themes
+package com.sharipov.taekwondoitfreferee.fragment.themes
 
 import android.os.Bundle
 import android.view.*
@@ -7,9 +7,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.sharipov.taekwondoitfreferee.MainViewModel
+import com.sharipov.taekwondoitfreferee.activity_main.MainViewModel
 import com.sharipov.taekwondoitfreferee.R
-import com.sharipov.taekwondoitfreferee.Theme
+import com.sharipov.taekwondoitfreferee.repository.Theme
 import kotlinx.android.synthetic.main.themes_fragment.*
 
 class ThemesFragment : Fragment() {

@@ -1,4 +1,4 @@
-package com.sharipov.taekwondoitfreferee
+package com.sharipov.taekwondoitfreferee.activity_main
 
 import android.os.Bundle
 import android.view.View
@@ -6,7 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.sharipov.taekwondoitfreferee.questions.QuestionsArgs.filter
+import com.sharipov.taekwondoitfreferee.R
+import com.sharipov.taekwondoitfreferee.fragment.questions.QuestionsArgs.filter
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {

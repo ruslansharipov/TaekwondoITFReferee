@@ -1,9 +1,9 @@
-package com.sharipov.taekwondoitfreferee.questions
+package com.sharipov.taekwondoitfreferee.fragment.questions
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.sharipov.taekwondoitfreferee.Question
+import com.sharipov.taekwondoitfreferee.repository.Question
 
 class QuestionsPagerAdapter(fm: FragmentManager): FragmentStatePagerAdapter(fm) {
     lateinit var questionList: List<Question>

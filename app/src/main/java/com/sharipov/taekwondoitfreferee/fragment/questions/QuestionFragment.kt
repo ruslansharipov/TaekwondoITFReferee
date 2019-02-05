@@ -1,4 +1,4 @@
-package com.sharipov.taekwondoitfreferee.questions
+package com.sharipov.taekwondoitfreferee.fragment.questions
 
 
 import android.os.Bundle
@@ -13,7 +13,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.sharipov.taekwondoitfreferee.Question
+import com.sharipov.taekwondoitfreferee.repository.Question
 import com.sharipov.taekwondoitfreferee.R
 import kotlinx.android.synthetic.main.fragment_question.view.*
 

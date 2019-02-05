@@ -1,4 +1,4 @@
-package com.sharipov.taekwondoitfreferee
+package com.sharipov.taekwondoitfreferee.repository
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -76,7 +76,12 @@ object QuestionRepository {
                         val list = ArrayList<Theme>()
                         it.toObject(Themes::class.java)
                             ?.themes
-                            ?.forEach { s -> list.add(Theme(s, countByTheme(s))) }
+                            ?.forEach { s -> list.add(
+                                Theme(
+                                    s,
+                                    countByTheme(s)
+                                )
+                            ) }
                         _themes.postValue(list)
                     }
                 }

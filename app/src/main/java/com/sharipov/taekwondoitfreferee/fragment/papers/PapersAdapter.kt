@@ -1,4 +1,4 @@
-package com.sharipov.taekwondoitfreferee.papers
+package com.sharipov.taekwondoitfreferee.fragment.papers
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.sharipov.taekwondoitfreferee.R
-import com.sharipov.taekwondoitfreferee.questions.QuestionsArgs
+import com.sharipov.taekwondoitfreferee.fragment.questions.QuestionsArgs
 import kotlinx.android.synthetic.main.papers_grid_item.view.*
 
 class PapersAdapter(private val papers: List<Int>): RecyclerView.Adapter<PapersAdapter.PapersViewHolder>() {

@@ -1,4 +1,4 @@
-package com.sharipov.taekwondoitfreferee.questions
+package com.sharipov.taekwondoitfreferee.fragment.questions
 
 import android.content.Context
 import android.util.AttributeSet
