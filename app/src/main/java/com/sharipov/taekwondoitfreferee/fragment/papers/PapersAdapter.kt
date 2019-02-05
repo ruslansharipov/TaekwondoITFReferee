@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.sharipov.taekwondoitfreferee.R
-import com.sharipov.taekwondoitfreferee.fragment.questions.QuestionsArgs
+import com.sharipov.taekwondoitfreferee.fragment.question.QuestionsArgs
 import kotlinx.android.synthetic.main.papers_grid_item.view.*
 
 class PapersAdapter(private val papers: List<Int>): RecyclerView.Adapter<PapersAdapter.PapersViewHolder>() {

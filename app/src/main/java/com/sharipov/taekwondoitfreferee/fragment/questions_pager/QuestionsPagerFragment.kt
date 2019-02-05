@@ -1,4 +1,4 @@
-package com.sharipov.taekwondoitfreferee.fragment.questions
+package com.sharipov.taekwondoitfreferee.fragment.questions_pager
 
 
 import android.os.Bundle
@@ -12,7 +12,7 @@ import androidx.viewpager.widget.ViewPager
 import com.sharipov.taekwondoitfreferee.activity_main.MainViewModel
 import com.sharipov.taekwondoitfreferee.repository.Question
 import com.sharipov.taekwondoitfreferee.R
-import com.sharipov.taekwondoitfreferee.fragment.questions.QuestionsArgs.filter
+import com.sharipov.taekwondoitfreferee.fragment.question.QuestionsArgs.filter
 import kotlinx.android.synthetic.main.fragment_questions_pager.*
 import kotlinx.android.synthetic.main.fragment_questions_pager.view.*
 

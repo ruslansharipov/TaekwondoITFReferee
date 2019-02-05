@@ -7,7 +7,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.sharipov.taekwondoitfreferee.R
 import com.sharipov.taekwondoitfreferee.repository.Theme
-import com.sharipov.taekwondoitfreferee.fragment.questions.QuestionsArgs
+import com.sharipov.taekwondoitfreferee.fragment.question.QuestionsArgs
 import kotlinx.android.synthetic.main.themes_list_item.view.*
 
 class ThemesAdapter(private val themes: List<Theme>) : RecyclerView.Adapter<ThemesAdapter.ThemesViewHolder>() {
