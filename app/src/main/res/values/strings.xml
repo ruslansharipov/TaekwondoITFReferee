@@ -9,4 +9,10 @@
     <string name="search_title">Поиск</string>
 
     <string name="questions_count">Вопросов: %1$d</string>
+    <string name="retry">Повторить</string>
+    <string name="next_question">Следующий вопрос</string>
+    <string name="hint">Подсказка</string>
+    <string name="correct_answer">Правильный ответ: %1$s</string>
+    <string name="hint_example">Здесь разместится подробное пояснение к правильному ответу. Чем подробнее оно будет - тем понятнее будет логика правильного ответа. Но так много текста здесь только для того, чтобы показать как будет выглядеть пример этой подсказки. Кроме того над правильным ответом можно разместить еще и поясняющую картинку.
+    </string>
 </resources>

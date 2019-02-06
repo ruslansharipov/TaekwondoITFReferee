@@ -9,10 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
-import com.sharipov.taekwondoitfreferee.activity_main.MainViewModel
-import com.sharipov.taekwondoitfreferee.repository.Question
 import com.sharipov.taekwondoitfreferee.R
+import com.sharipov.taekwondoitfreferee.activity_main.MainViewModel
 import com.sharipov.taekwondoitfreferee.fragment.question.QuestionsArgs.filter
+import com.sharipov.taekwondoitfreferee.repository.Question
 import kotlinx.android.synthetic.main.fragment_questions_pager.*
 import kotlinx.android.synthetic.main.fragment_questions_pager.view.*
 
@@ -33,6 +33,14 @@ class QuestionsPagerFragment : Fragment(), QuestionsPagerAdapter.ScrollControlle
                 mainScrollController = this@QuestionsPagerFragment
             }
             pager.adapter = questionsAdapter
+            pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+                override fun onPageScrollStateChanged(state: Int) {}
+                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                    questionsAdapter.scrollListeners[position]
+                        ?.onPageScrolled()
+                }
+                override fun onPageSelected(position: Int) {}
+            })
         })
         return view
     }

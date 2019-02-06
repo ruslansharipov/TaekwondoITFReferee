@@ -6,7 +6,7 @@ import android.view.MotionEvent
 import androidx.viewpager.widget.ViewPager
 
 class QuestionsViewPager(context: Context, attrs: AttributeSet?): ViewPager(context, attrs) {
-    var isPagingEnabled: Boolean = false
+    private var isPagingEnabled: Boolean = false
 
     constructor(context: Context) : this(context, null)
 
