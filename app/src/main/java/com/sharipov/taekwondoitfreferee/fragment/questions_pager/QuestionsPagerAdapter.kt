@@ -1,11 +1,10 @@
 package com.sharipov.taekwondoitfreferee.fragment.questions_pager
 
-import android.util.Log
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.sharipov.taekwondoitfreferee.activity_main.OnBackPressedListener
+import com.sharipov.taekwondoitfreferee.fragment.question.JobCanceller
 import com.sharipov.taekwondoitfreferee.fragment.question.OnPageScrolledListener
 import com.sharipov.taekwondoitfreferee.fragment.question.QuestionFragment
 import com.sharipov.taekwondoitfreferee.repository.Question
@@ -15,18 +14,13 @@ class QuestionsPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm)
     lateinit var mainScrollController: ScrollController
 
     val scrollListeners = HashMap<Int, OnPageScrolledListener>()
-    val backPressedListeners = HashMap<Int, OnBackPressedListener>()
+    val backPressedListeners = HashMap<Int, JobCanceller>()
 
     override fun getItem(position: Int): Fragment = QuestionFragment().apply {
         question = questionList[position]
         scrollController = mainScrollController
-        backPressedListeners[position] = this as OnBackPressedListener
+        backPressedListeners[position] = this as JobCanceller
         scrollListeners[position] = this as OnPageScrolledListener
-        Log.d(
-            "itf",
-            "backPressedListeners: ${backPressedListeners.keys} \n" +
-                    "scrollListeners: ${scrollListeners.keys}"
-        )
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
