@@ -2,6 +2,7 @@ package com.sharipov.taekwondoitfreferee.fragment.questions_pager
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,13 +12,24 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.sharipov.taekwondoitfreferee.R
 import com.sharipov.taekwondoitfreferee.activity_main.MainViewModel
+import com.sharipov.taekwondoitfreferee.activity_main.OnBackPressedListener
 import com.sharipov.taekwondoitfreferee.fragment.question.QuestionsArgs.filter
 import com.sharipov.taekwondoitfreferee.repository.Question
 import kotlinx.android.synthetic.main.fragment_questions_pager.*
 import kotlinx.android.synthetic.main.fragment_questions_pager.view.*
 
-class QuestionsPagerFragment : Fragment(), QuestionsPagerAdapter.ScrollController {
-    lateinit var mainViewModel: MainViewModel
+class QuestionsPagerFragment : Fragment(), QuestionsPagerAdapter.ScrollController, OnBackPressedListener {
+    private lateinit var questionsAdapter: QuestionsPagerAdapter
+
+    override fun onBackPressed() {
+        if (::questionsAdapter.isInitialized)
+            for ((i, b) in questionsAdapter.backPressedListeners) {
+                Log.d("itf", "PagerFragment $i")
+                b.onBackPressed()
+            }
+    }
+
+    private lateinit var mainViewModel: MainViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,13 +45,11 @@ class QuestionsPagerFragment : Fragment(), QuestionsPagerAdapter.ScrollControlle
                 mainScrollController = this@QuestionsPagerFragment
             }
             pager.adapter = questionsAdapter
-            pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-                override fun onPageScrollStateChanged(state: Int) {}
+            pager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
                 override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
                     questionsAdapter.scrollListeners[position]
                         ?.onPageScrolled()
                 }
-                override fun onPageSelected(position: Int) {}
             })
         })
         return view

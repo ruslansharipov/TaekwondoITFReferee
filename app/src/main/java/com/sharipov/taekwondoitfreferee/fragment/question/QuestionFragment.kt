@@ -2,6 +2,7 @@ package com.sharipov.taekwondoitfreferee.fragment.question
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.sharipov.taekwondoitfreferee.R
+import com.sharipov.taekwondoitfreferee.activity_main.OnBackPressedListener
 import com.sharipov.taekwondoitfreferee.fragment.questions_pager.QuestionsPagerAdapter
 import com.sharipov.taekwondoitfreferee.repository.Question
 import kotlinx.android.synthetic.main.fragment_question.view.*
@@ -18,7 +20,7 @@ import kotlinx.android.synthetic.main.question_bottom_sheet.view.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-class QuestionFragment : Fragment(), OnPageScrolledListener, CoroutineScope {
+class QuestionFragment : Fragment(), OnPageScrolledListener, CoroutineScope, OnBackPressedListener {
     private val questionJob = Job()
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + questionJob
@@ -55,7 +57,6 @@ class QuestionFragment : Fragment(), OnPageScrolledListener, CoroutineScope {
 
                 bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
                     override fun onSlide(p0: View, p1: Float) {}
-
                     override fun onStateChanged(p0: View, state: Int) {
                         if (state == BottomSheetBehavior.STATE_EXPANDED) clearButtonsDrawables()
                     }
@@ -63,24 +64,20 @@ class QuestionFragment : Fragment(), OnPageScrolledListener, CoroutineScope {
             }
     }
 
-    private fun clearButtonsDrawables() {
-        buttons.forEach { it.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0) }
+    private fun clearButtonsDrawables() = buttons.forEach {
+        it.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
     }
 
     private fun showBottomSheet() {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
-    private fun scrollToTheNextQuestion() {
-        scrollController.scrollToNextPage()
-    }
-
-    private fun checkAnswer(b: Button) = launch {
+    private fun checkAnswer(b: Button) = launch(coroutineContext) {
         if (b.text == question.answer) {
             b.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.answer_correct, 0)
             delay(DELAY_TIME_MS)
-            scrollToTheNextQuestion()
             b.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+            scrollController.scrollToNextPage()
         } else {
             b.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.answer_wrong, 0)
             delay(DELAY_TIME_MS)
@@ -94,14 +91,22 @@ class QuestionFragment : Fragment(), OnPageScrolledListener, CoroutineScope {
 
     override fun onDestroy() {
         super.onDestroy()
+        Log.d("itf", "onDestroy(): questionJob.isCancelled = ${questionJob.isCancelled}")
         questionJob.cancel()
+        Log.d("itf", "onDestroy(): questionJob.isCancelled = ${questionJob.isCancelled}")
+    }
+
+    override fun onBackPressed() {
+        Log.d("itf", "onBackPressed(): questionJob.isCancelled = ${questionJob.isCancelled}")
+        questionJob.cancel()
+        Log.d("itf", "onBackPressed(): questionJob.isCancelled = ${questionJob.isCancelled}")
     }
 
     companion object {
-        private const val DELAY_TIME_MS = 400L
+        private const val DELAY_TIME_MS = 4000L
     }
 }
 
-interface OnPageScrolledListener{
+interface OnPageScrolledListener {
     fun onPageScrolled()
 }
