@@ -3,28 +3,12 @@ package com.sharipov.taekwondoitfreferee.repository
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreException
-import kotlinx.coroutines.suspendCancellableCoroutine
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
 
 const val QUESTIONS = "questions"
 const val SORT_BY = "sortBy"
 const val PAPER = "paper"
 const val THEME = "theme"
-
-suspend fun <DocumentSnapshot> awaitCallback(block: (EventListener<DocumentSnapshot>) -> Unit): DocumentSnapshot =
-    suspendCancellableCoroutine { cont ->
-        block(object : EventListener<DocumentSnapshot> {
-            override fun onEvent(p0: DocumentSnapshot?, p1: FirebaseFirestoreException?) {
-                if (p1 != null) p1.let { cont.resumeWithException(it) }
-                else p0?.let { cont.resume(p0) }
-            }
-        })
-    }
-
 
 object QuestionRepository {
     private lateinit var questionsList: List<Question>
@@ -76,12 +60,14 @@ object QuestionRepository {
                         val list = ArrayList<Theme>()
                         it.toObject(Themes::class.java)
                             ?.themes
-                            ?.forEach { s -> list.add(
-                                Theme(
-                                    s,
-                                    countByTheme(s)
+                            ?.forEach { s ->
+                                list.add(
+                                    Theme(
+                                        s,
+                                        countByTheme(s)
+                                    )
                                 )
-                            ) }
+                            }
                         _themes.postValue(list)
                     }
                 }
@@ -110,14 +96,10 @@ object QuestionRepository {
 
 class Papers {
     var papers: List<Int>? = null
-
-    constructor()
 }
 
 class Themes {
     var themes: List<String>? = null
-
-    constructor()
 }
 
 class Question {
@@ -128,26 +110,6 @@ class Question {
     var pictureUrl: String? = null
     var paperNumber: Int? = null
     var theme: String? = null
-
-    constructor()
-
-//    constructor(
-//        question: String?,
-//        hint: String?,
-//        answer: String?,
-//        answers: List<String>?,
-//        pictureUrl: String?,
-//        paperNumber: Int?,
-//        theme: String?
-//    ) {
-//        this.question = question
-//        this.hint = hint
-//        this.answer = answer
-//        this.answers = answers
-//        this.pictureUrl = pictureUrl
-//        this.paperNumber = paperNumber
-//        this.theme = theme
-//    }
 }
 
 data class Theme(val theme: String, val count: Int)

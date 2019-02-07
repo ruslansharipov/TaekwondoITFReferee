@@ -103,7 +103,7 @@ class QuestionFragment : Fragment(), OnPageScrolledListener, CoroutineScope, OnB
     }
 
     companion object {
-        private const val DELAY_TIME_MS = 4000L
+        private const val DELAY_TIME_MS = 400L
     }
 }
 
