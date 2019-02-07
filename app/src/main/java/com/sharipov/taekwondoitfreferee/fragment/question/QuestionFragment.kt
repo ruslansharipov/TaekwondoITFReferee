@@ -16,19 +16,20 @@ import com.sharipov.taekwondoitfreferee.activity_main.OnBackPressedListener
 import com.sharipov.taekwondoitfreferee.fragment.questions_pager.QuestionsPagerAdapter
 import com.sharipov.taekwondoitfreferee.repository.Question
 import kotlinx.android.synthetic.main.fragment_question.view.*
+import kotlinx.android.synthetic.main.question_bottom_sheet.*
 import kotlinx.android.synthetic.main.question_bottom_sheet.view.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
 class QuestionFragment : Fragment(), OnPageScrolledListener, CoroutineScope, OnBackPressedListener {
-    private val questionJob = Job()
+    private val job = Job()
     override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main + questionJob
+        get() = Dispatchers.Main + job
 
     lateinit var question: Question
     lateinit var scrollController: QuestionsPagerAdapter.ScrollController
-    lateinit var bottomSheetBehavior: BottomSheetBehavior<CardView>
-    lateinit var buttons: Array<Button>
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<CardView>
+    private lateinit var buttons: Array<Button>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,7 +46,7 @@ class QuestionFragment : Fragment(), OnPageScrolledListener, CoroutineScope, OnB
                     .into(questionImageView)
                 buttons.forEachIndexed { i, button ->
                     button.text = question.answers?.get(i)
-                    button.setOnClickListener { checkAnswer(it as Button) }
+                    button.setOnClickListener { checkAnswer(button) }
                 }
 
                 answerTextView.text = String.format(context.getString(R.string.correct_answer), question.answer)
@@ -57,32 +58,43 @@ class QuestionFragment : Fragment(), OnPageScrolledListener, CoroutineScope, OnB
 
                 bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
                     override fun onSlide(p0: View, p1: Float) {}
-                    override fun onStateChanged(p0: View, state: Int) {
-                        if (state == BottomSheetBehavior.STATE_EXPANDED) clearButtonsDrawables()
+                    override fun onStateChanged(p0: View, state: Int) = when (state) {
+                        BottomSheetBehavior.STATE_EXPANDED -> onStateExpanded()
+                        BottomSheetBehavior.STATE_COLLAPSED -> onStateCollapsed()
+                        else -> {}
                     }
                 })
             }
     }
 
-    private fun clearButtonsDrawables() = buttons.forEach {
-        it.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+    private fun onStateExpanded() {
+        hintButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.arrow_down, 0, 0, 0)
+        buttons.forEach {
+            it.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+            it.setOnClickListener(null)
+        }
+    }
+
+    private fun onStateCollapsed() {
+        hintButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.arrow_up, 0, 0, 0)
+        buttons.forEach { b -> b.setOnClickListener { checkAnswer(b) } }
     }
 
     private fun showBottomSheet() {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
-    private fun checkAnswer(b: Button) = launch(coroutineContext) {
+    private fun checkAnswer(b: Button) = launch {
         if (b.text == question.answer) {
             b.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.answer_correct, 0)
             delay(DELAY_TIME_MS)
-            b.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
             scrollController.scrollToNextPage()
         } else {
             b.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.answer_wrong, 0)
             delay(DELAY_TIME_MS)
             showBottomSheet()
         }
+
     }
 
     override fun onPageScrolled() {
@@ -91,15 +103,15 @@ class QuestionFragment : Fragment(), OnPageScrolledListener, CoroutineScope, OnB
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.d("itf", "onDestroy(): questionJob.isCancelled = ${questionJob.isCancelled}")
-        questionJob.cancel()
-        Log.d("itf", "onDestroy(): questionJob.isCancelled = ${questionJob.isCancelled}")
+        Log.d("itf", "onDestroy(): job.isCancelled = ${job.isCancelled}")
+        job.cancel()
+        Log.d("itf", "onDestroy(): job.isCancelled = ${job.isCancelled}")
     }
 
     override fun onBackPressed() {
-        Log.d("itf", "onBackPressed(): questionJob.isCancelled = ${questionJob.isCancelled}")
-        questionJob.cancel()
-        Log.d("itf", "onBackPressed(): questionJob.isCancelled = ${questionJob.isCancelled}")
+        Log.d("itf", "onBackPressed(): job.isCancelled = ${job.isCancelled}")
+        job.cancel()
+        Log.d("itf", "onBackPressed(): job.isCancelled = ${job.isCancelled}")
     }
 
     companion object {

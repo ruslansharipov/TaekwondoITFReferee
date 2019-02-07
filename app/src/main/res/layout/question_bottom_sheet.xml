@@ -19,18 +19,24 @@
                   android:layout_marginBottom="12dp">
 
         <Button android:id="@+id/hintButton"
-                android:drawableStart="@drawable/help"
+                android:drawableStart="@drawable/arrow_up"
                 android:drawablePadding="24dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="textStart"
+                android:textColor="@android:color/darker_gray"
                 android:textAllCaps="false"
                 android:text="@string/hint"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored"/>
+                style="@style/Widget.AppCompat.Button.Borderless"/>
+
+        <View android:layout_width="match_parent"
+              android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
 
         <ImageView android:id="@+id/hintImageView"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
+                   android:layout_marginTop="12dp"
                    tools:src="@tools:sample/avatars"/>
 
         <TextView android:id="@+id/answerTextView"
