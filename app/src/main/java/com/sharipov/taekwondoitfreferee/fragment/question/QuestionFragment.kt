@@ -42,42 +42,50 @@ class QuestionFragment : Fragment(), OnPageScrolledListener, CoroutineScope, Job
                 Glide.with(context)
                     .load(question.pictureUrl)
                     .into(questionImageView)
-                buttons.forEachIndexed { i, button ->
-                    button.text = question.answers?.get(i)
-                    button.setOnClickListener { checkAnswer(button) }
-                }
+                buttons.forEachIndexed { i, button -> button.text = question.answers?.get(i) }
+                setListeners()
 
                 answerTextView.text = String.format(context.getString(R.string.correct_answer), question.answer)
                 Glide.with(context)
                     .load(question.pictureUrl)
                     .into(hintImageView)
                 hintTextView.append("\n${question.hint}")
-                hintButton.setOnClickListener { showBottomSheet() }
+                hintButton.setOnClickListener { bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED }
 
                 bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
                     override fun onSlide(p0: View, p1: Float) {}
                     override fun onStateChanged(p0: View, state: Int) = when (state) {
+                        BottomSheetBehavior.STATE_HALF_EXPANDED -> onStateHalfExpanded()
                         BottomSheetBehavior.STATE_EXPANDED -> onStateExpanded()
                         BottomSheetBehavior.STATE_COLLAPSED -> onStateCollapsed()
-                        else -> {
-                        }
+                        else -> { }
                     }
                 })
             }
     }
 
-    private fun onStateExpanded() {
-        hintButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.arrow_down, 0, 0, 0)
+    private fun setListeners() =
+        buttons.forEach { b -> b.setOnClickListener { checkAnswer(b) } }
+
+    private fun removeListeners() =
         buttons.forEach { it.setOnClickListener(null) }
+
+
+    private fun onStateExpanded() {
+        removeListeners()
+        hintButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.arrow_down, 0, 0, 0)
+        hintButton.setOnClickListener { bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED }
     }
 
     private fun onStateCollapsed() {
+        hintButton.setOnClickListener { bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED }
         hintButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.arrow_up, 0, 0, 0)
-        buttons.forEach { b -> b.setOnClickListener { checkAnswer(b) } }
+        setListeners()
     }
 
-    private fun showBottomSheet() {
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+    private fun onStateHalfExpanded() {
+        removeListeners()
+        hintButton.setOnClickListener { bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED }
     }
 
     private fun checkAnswer(b: Button) = launch {
@@ -90,7 +98,7 @@ class QuestionFragment : Fragment(), OnPageScrolledListener, CoroutineScope, Job
             b.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.answer_wrong, 0)
             delay(DELAY_TIME_MS)
             b.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
-            showBottomSheet()
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
     }
 
@@ -103,9 +111,7 @@ class QuestionFragment : Fragment(), OnPageScrolledListener, CoroutineScope, Job
         super.onDestroy()
     }
 
-    override fun cancelTheJob() {
-        if (job.isActive && !job.isCancelled) job.cancel()
-    }
+    override fun cancelTheJob() = job.cancel()
 
     companion object {
         private const val DELAY_TIME_MS = 400L
