@@ -8,52 +8,49 @@
         android:layout_height="match_parent"
         app:behavior_hideable="false"
         app:behavior_peekHeight="48dp"
-        app:layout_behavior="@string/bottom_sheet_behavior"
-        app:cardCornerRadius="8dp">
+        app:layout_behavior="@string/bottom_sheet_behavior">
 
     <ScrollView android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
         <LinearLayout android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:orientation="vertical"
-                      android:layout_marginStart="12dp"
-                      android:layout_marginEnd="12dp"
-                      android:layout_marginBottom="12dp">
+                      android:orientation="vertical">
 
-            <Button android:id="@+id/hintButton"
-                    android:drawableStart="@drawable/arrow_up"
-                    android:drawablePadding="24dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="textStart"
-                    android:textColor="@android:color/darker_gray"
-                    android:textAllCaps="false"
-                    android:text="@string/hint"
-                    style="@style/Widget.AppCompat.Button.Borderless"/>
-
-            <View android:layout_width="match_parent"
-                  android:layout_height="1dp"
-                  android:background="@android:color/darker_gray"/>
+            <TextView android:id="@+id/hintButton"
+                      android:drawableStart="@drawable/arrow_up"
+                      android:drawablePadding="24dp"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:padding="12dp"
+                      android:textAlignment="textStart"
+                      android:textColor="@android:color/white"
+                      android:background="@color/colorPrimary"
+                      android:textAllCaps="false"
+                      android:text="@string/hint"/>
 
             <ImageView android:id="@+id/hintImageView"
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
-                       android:layout_marginTop="12dp"
                        tools:src="@tools:sample/avatars"/>
 
             <TextView android:id="@+id/answerTextView"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:layout_marginTop="12dp"
+                      android:layout_marginStart="12dp"
+                      android:layout_marginEnd="12dp"
                       android:text="@string/correct_answer"/>
 
             <TextView android:id="@+id/hintTextView"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:layout_marginTop="12dp"
+                      android:layout_marginStart="12dp"
+                      android:layout_marginEnd="12dp"
                       android:text="@string/hint_example"/>
 
         </LinearLayout>
+
     </ScrollView>
 </androidx.cardview.widget.CardView>
