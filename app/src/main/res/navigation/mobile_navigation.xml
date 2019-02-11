@@ -13,14 +13,21 @@
     <fragment android:id="@+id/papersFragment" android:name="com.sharipov.taekwondoitfreferee.fragment.papers.PapersFragment"
               android:label="Билеты" tools:layout="@layout/papers_fragment">
         <action android:id="@+id/action_papersFragment_to_questionsPagerFragment"
-                app:destination="@id/questionsPagerFragment" app:launchSingleTop="true"/>
+                app:destination="@+id/papersPagerFragment" app:launchSingleTop="true"/>
     </fragment>
     <fragment android:id="@+id/themesFragment" android:name="com.sharipov.taekwondoitfreferee.fragment.themes.ThemesFragment"
               android:label="Темы" tools:layout="@layout/themes_fragment">
         <action android:id="@+id/action_themesFragment_to_questionsPagerFragment"
-                app:destination="@id/questionsPagerFragment" app:launchSingleTop="true"/>
+                app:destination="@+id/themesPagerFragment" app:launchSingleTop="true"/>
     </fragment>
-    <fragment android:id="@+id/questionsPagerFragment"
-              android:name="com.sharipov.taekwondoitfreferee.fragment.questions_pager.QuestionsPagerFragment"
-              android:label="Вопросы" tools:layout="@layout/fragment_questions_pager"/>
+    <fragment android:id="@+id/papersPagerFragment"
+              android:name="com.sharipov.taekwondoitfreferee.fragment.questions_pager.PapersPagerFragment"
+              android:label="Вопросы">
+        <argument android:name="paper" app:argType="integer"/>
+    </fragment>
+    <fragment android:id="@+id/themesPagerFragment"
+              android:name="com.sharipov.taekwondoitfreferee.fragment.questions_pager.ThemesPagerFragment"
+              android:label="Вопросы">
+        <argument android:name="theme" app:argType="string" android:defaultValue="theme"/>
+    </fragment>
 </navigation>

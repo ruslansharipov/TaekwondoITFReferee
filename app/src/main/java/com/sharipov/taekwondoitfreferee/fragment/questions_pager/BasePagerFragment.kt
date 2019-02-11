@@ -11,12 +11,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.sharipov.taekwondoitfreferee.R
 import com.sharipov.taekwondoitfreferee.activity_main.MainViewModel
-import com.sharipov.taekwondoitfreferee.fragment.question.QuestionsArgs.filter
 import com.sharipov.taekwondoitfreferee.repository.Question
 import kotlinx.android.synthetic.main.fragment_questions_pager.*
-import kotlinx.android.synthetic.main.fragment_questions_pager.view.*
 
-class QuestionsPagerFragment : Fragment(), QuestionsPagerAdapter.ScrollController {
+abstract class BasePagerFragment : Fragment(), QuestionsPagerAdapter.ScrollController {
     private lateinit var questionsAdapter: QuestionsPagerAdapter
     private var currentPage: Int = 0
 
@@ -27,16 +25,15 @@ class QuestionsPagerFragment : Fragment(), QuestionsPagerAdapter.ScrollControlle
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_questions_pager, container, false)
-        val pager = view.findViewById<ViewPager>(R.id.viewPager)
-        view.tabLayout.setupWithViewPager(pager)
+
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         mainViewModel.questions.observe(this, Observer {
             questionsAdapter = QuestionsPagerAdapter(fragmentManager!!).apply {
                 questionList = filterQuestions(it)
-                mainScrollController = this@QuestionsPagerFragment
+                mainScrollController = this@BasePagerFragment
             }
-            pager.adapter = questionsAdapter
-            pager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
+            viewPager.adapter = questionsAdapter
+            viewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
                 override fun onPageSelected(position: Int) {
                     currentPage = position
                 }
@@ -45,6 +42,7 @@ class QuestionsPagerFragment : Fragment(), QuestionsPagerAdapter.ScrollControlle
                     questionsAdapter.scrollListeners[position]?.collapseBottomSheet()
                 }
             })
+            tabLayout.setupWithViewPager(viewPager)
         })
         return view
     }
@@ -58,9 +56,5 @@ class QuestionsPagerFragment : Fragment(), QuestionsPagerAdapter.ScrollControlle
         viewPager.currentItem += 1
     }
 
-    private fun filterQuestions(list: List<Question>): List<Question> = when (filter) {
-        is String -> list.filter { it.theme == filter }
-        is Int -> list.filter { it.paperNumber == filter }
-        else -> emptyList()
-    }
+    abstract fun filterQuestions(list: List<Question>): List<Question>
 }

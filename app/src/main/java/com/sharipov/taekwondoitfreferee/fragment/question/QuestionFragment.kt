@@ -19,8 +19,8 @@ import kotlinx.android.synthetic.main.question_bottom_sheet.view.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-class QuestionFragment : Fragment(), OnPageScrolledListener, CoroutineScope, JobCanceller {
-    private val job = Job()
+class QuestionFragment : Fragment(), CoroutineScope, OnPageScrolledListener, JobCanceller {
+    private val job: Job = Job()
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
@@ -35,6 +35,8 @@ class QuestionFragment : Fragment(), OnPageScrolledListener, CoroutineScope, Job
     ): View? {
         return inflater.inflate(R.layout.fragment_question, container, false)
             .apply {
+                question = arguments?.getSerializable(QuestionsPagerAdapter.QUESTION) as Question
+
                 buttons = arrayOf(button1, button2, button3, button4)
                 bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
 
@@ -58,7 +60,7 @@ class QuestionFragment : Fragment(), OnPageScrolledListener, CoroutineScope, Job
                         BottomSheetBehavior.STATE_HALF_EXPANDED -> onStateHalfExpanded()
                         BottomSheetBehavior.STATE_EXPANDED -> onStateExpanded()
                         BottomSheetBehavior.STATE_COLLAPSED -> onStateCollapsed()
-                        else -> { }
+                        else -> {}
                     }
                 })
             }
