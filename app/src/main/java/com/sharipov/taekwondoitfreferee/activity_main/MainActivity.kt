@@ -7,7 +7,6 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.sharipov.taekwondoitfreferee.R
-import com.sharipov.taekwondoitfreferee.fragment.question.QuestionsArgs.filter
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -25,13 +24,12 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             when (destination.id) {
-                R.id.questionsPagerFragment -> {
+                R.id.papersPagerFragment, R.id.themesPagerFragment -> {
                     bottomNav.visibility = View.GONE
-                    setupSubtitle(filter)
                 }
                 else -> {
                     bottomNav.visibility = View.VISIBLE
-                    setupSubtitle(null)
+                    toolbar.subtitle = null
                 }
             }
         }
@@ -39,11 +37,5 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp()
-    }
-
-    private fun setupSubtitle(subtitle: Any?) = when (subtitle) {
-        is String -> toolbar.subtitle = subtitle
-        is Int -> toolbar.subtitle = "Paper #$subtitle"
-        else -> toolbar.subtitle = null
     }
 }

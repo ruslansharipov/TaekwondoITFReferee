@@ -19,8 +19,8 @@ import kotlinx.android.synthetic.main.question_bottom_sheet.view.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-class QuestionFragment : Fragment(), OnPageScrolledListener, CoroutineScope, JobCanceller {
-    private val job = Job()
+class QuestionFragment : Fragment(), CoroutineScope, OnPageScrolledListener, JobCanceller {
+    private val job: Job = Job()
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
