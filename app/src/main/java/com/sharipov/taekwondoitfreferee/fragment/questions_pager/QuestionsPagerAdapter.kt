@@ -1,6 +1,7 @@
 package com.sharipov.taekwondoitfreferee.fragment.questions_pager
 
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
@@ -17,11 +18,12 @@ class QuestionsPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm)
     val backPressedListeners = HashMap<Int, JobCanceller>()
 
     override fun getItem(position: Int): Fragment = QuestionFragment().apply {
-        question = questionList[position]
+        arguments = bundleOf(QUESTION to questionList[position])
         scrollController = mainScrollController
         backPressedListeners[position] = this as JobCanceller
         scrollListeners[position] = this as OnPageScrolledListener
     }
+
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
         scrollListeners.remove(position)
@@ -32,6 +34,10 @@ class QuestionsPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm)
     override fun getCount(): Int = questionList.size
 
     override fun getPageTitle(position: Int): CharSequence? = (position + 1).toString()
+
+    companion object {
+        const val QUESTION = "QUESTION"
+    }
 
     interface ScrollController {
         fun scrollToNextPage()

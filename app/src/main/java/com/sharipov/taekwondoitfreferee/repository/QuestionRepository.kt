@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
+import java.io.Serializable
 
 const val QUESTIONS = "questions"
 const val SORT_BY = "sortBy"
@@ -102,7 +103,7 @@ class Themes {
     var themes: List<String>? = null
 }
 
-class Question {
+class Question: Serializable {
     var question: String? = null
     var hint: String? = null
     var answer: String? = null

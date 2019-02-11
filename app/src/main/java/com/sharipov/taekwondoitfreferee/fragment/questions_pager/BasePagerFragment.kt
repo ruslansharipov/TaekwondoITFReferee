@@ -13,7 +13,6 @@ import com.sharipov.taekwondoitfreferee.R
 import com.sharipov.taekwondoitfreferee.activity_main.MainViewModel
 import com.sharipov.taekwondoitfreferee.repository.Question
 import kotlinx.android.synthetic.main.fragment_questions_pager.*
-import kotlinx.android.synthetic.main.fragment_questions_pager.view.*
 
 abstract class BasePagerFragment : Fragment(), QuestionsPagerAdapter.ScrollController {
     private lateinit var questionsAdapter: QuestionsPagerAdapter
@@ -26,7 +25,7 @@ abstract class BasePagerFragment : Fragment(), QuestionsPagerAdapter.ScrollContr
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_questions_pager, container, false)
-        view.tabLayout.setupWithViewPager(viewPager)
+
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         mainViewModel.questions.observe(this, Observer {
             questionsAdapter = QuestionsPagerAdapter(fragmentManager!!).apply {
@@ -43,6 +42,7 @@ abstract class BasePagerFragment : Fragment(), QuestionsPagerAdapter.ScrollContr
                     questionsAdapter.scrollListeners[position]?.collapseBottomSheet()
                 }
             })
+            tabLayout.setupWithViewPager(viewPager)
         })
         return view
     }

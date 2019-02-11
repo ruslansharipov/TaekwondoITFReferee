@@ -35,6 +35,8 @@ class QuestionFragment : Fragment(), CoroutineScope, OnPageScrolledListener, Job
     ): View? {
         return inflater.inflate(R.layout.fragment_question, container, false)
             .apply {
+                question = arguments?.getSerializable(QuestionsPagerAdapter.QUESTION) as Question
+
                 buttons = arrayOf(button1, button2, button3, button4)
                 bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
 
@@ -58,7 +60,7 @@ class QuestionFragment : Fragment(), CoroutineScope, OnPageScrolledListener, Job
                         BottomSheetBehavior.STATE_HALF_EXPANDED -> onStateHalfExpanded()
                         BottomSheetBehavior.STATE_EXPANDED -> onStateExpanded()
                         BottomSheetBehavior.STATE_COLLAPSED -> onStateCollapsed()
-                        else -> { }
+                        else -> {}
                     }
                 })
             }
